@@ -18,11 +18,13 @@ import org.jfree.ui.ApplicationFrame;
  * @author Antonio Miguel Martel
  */
 public class HistogramDisplay extends ApplicationFrame{
+    private final Histogram<String> histogram;
     
     //Me creas la ventana con su panel y e
-    public HistogramDisplay() {
+    public HistogramDisplay(Histogram<String> histogram) {
         //Invocamos constructor de la superclase
-        super("Histograma");
+        super("Histograma");        
+        this.histogram = histogram;
         //Entonces aqui tenemos el panel que contendrá todo dentro de la ventana
         this.setContentPane(createPanel());
         //Me ajustas todo
@@ -54,10 +56,9 @@ public class HistogramDisplay extends ApplicationFrame{
     //Creamos conjunto de datos
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(4, "", "ulpgc.es");
-        dataset.addValue(1, "", "ull.es");
-        dataset.addValue(6, "", "hotmail.com");
-        dataset.addValue(12, "", "gmail.com");
+        for(String key : histogram.keySet()){
+            dataset.addValue(histogram.get(key), "", key);
+        }
         return dataset;
     }
     
